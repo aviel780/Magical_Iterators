@@ -1,34 +1,41 @@
 #include "MagicalContainer.hpp"
+#include <vector>
 
 namespace ariel {
 
-    void MagicalContainer::addElement(int element) {
-        // if (std::find(container.begin(), container.end(), element) == container.end()) {
-        //     container.push_back(element);
-        // }
-    }
+   
+    void MagicalContainer::addElement(int element){
+                for(size_t i = 0; i<container.size();i++){
+                    if(container[i] == element){
+                        return;
+                    }
+                }
+
+                container.push_back(element);
+                std::sort(container.begin(),container.end());
+            }
 
     void MagicalContainer::removeElement(int element) {
-        // auto it = std::find(container.begin(), container.end(), element);
-        // if (it != container.end()) {
-        //     container.erase(it);
-        // }
+        auto it = std::find(container.begin(), container.end(), element);
+        if (it != container.end()) {
+            container.erase(it);
+        }
     }
 
     size_t MagicalContainer::size() const {
-     //   "container.size()"
-        return 1 ;
+       
+        return container.size() ;
     }
 
     bool MagicalContainer::isPrime(int number) const {
-        // if (number <= 1) {
-        //     return false;
-        // }
-        // for (int i = 2; i <= std::sqrt(number); ++i) {
-        //     if (number % i == 0) {
-        //         return false;
-        //     }
-        // }
+        if (number <= 1) {
+            return false;
+        }
+        for (int i = 2; i <= std::sqrt(number); ++i) {
+            if (number % i == 0) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -40,12 +47,13 @@ namespace ariel {
         return AscendingIterator(*this, container.size());
     }
 
-    MagicalContainer::SideCrossIterator MagicalContainer::sideCrossBegin() const {
-        return SideCrossIterator(*this, 0);
+    MagicalContainer::SideCrossIterator  MagicalContainer::SideCrossIterator::begin() const {
+        return SideCrossIterator(container, 0);
     }
 
-    MagicalContainer::SideCrossIterator MagicalContainer::sideCrossEnd() const {
-        return SideCrossIterator(*this, container.size());
+    MagicalContainer::SideCrossIterator MagicalContainer::SideCrossIterator::end() const {
+       // shoude be container.size()
+        return SideCrossIterator(container, 0);
     }
 
     MagicalContainer::PrimeIterator MagicalContainer::primeBegin() const {
@@ -57,7 +65,8 @@ namespace ariel {
     }
 
     MagicalContainer::AscendingIterator::AscendingIterator(const MagicalContainer& container, size_t index)
-        : container(container), index(index) {}
+        : container(container), index(index) {
+        }
 
     int MagicalContainer::AscendingIterator::operator*() const {
         return container.container[index];
@@ -77,7 +86,8 @@ namespace ariel {
     }
 
     MagicalContainer::SideCrossIterator::SideCrossIterator(const MagicalContainer& container, size_t index)
-        : container(container), index(index) {}
+        : container(container), index(index) {
+        }
 
     int MagicalContainer::SideCrossIterator::operator*() const {
         return container.container[index];
@@ -97,7 +107,8 @@ namespace ariel {
     }
 
     MagicalContainer::PrimeIterator::PrimeIterator(const MagicalContainer& container, size_t index)
-        : container(container), index(index) {}
+        : container(container), index(index) {
+        }
 
     int MagicalContainer::PrimeIterator::operator*() const {
         return container.container[index];
@@ -118,12 +129,19 @@ namespace ariel {
   
 
 MagicalContainer::SideCrossIterator::SideCrossIterator(const MagicalContainer& container)
-        : container(container) {}
+        : container(container),index(0) {
+        }
 MagicalContainer::PrimeIterator::PrimeIterator(const MagicalContainer& container)
-        : container(container) {}
+        : container(container),index(0) {
+        }
 
  MagicalContainer::AscendingIterator::AscendingIterator(const MagicalContainer& container)
-        : container(container){}
-    
+        : container(container),index(0){
+        
+        }
+
+
+        
+
 
 } // namespace ariel

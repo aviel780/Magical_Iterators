@@ -11,7 +11,7 @@ namespace ariel {
     public:
         // Default constructor
         MagicalContainer() = default;
-
+ 
         // Add an element to the container
         void addElement(int element);
 
@@ -30,13 +30,10 @@ namespace ariel {
         AscendingIterator ascendingBegin() const;
         AscendingIterator ascendingEnd() const;
 
-        // Side Cross Iterator
-        SideCrossIterator sideCrossBegin() const;
-        SideCrossIterator sideCrossEnd() const;
-
         // Prime Iterator
         PrimeIterator primeBegin() const;
         PrimeIterator primeEnd() const;
+
 
     private:
         std::vector<int> container;
@@ -49,6 +46,7 @@ namespace ariel {
     class MagicalContainer::AscendingIterator {
     public:
         AscendingIterator(const MagicalContainer& container, size_t index);
+        
         AscendingIterator(const MagicalContainer& container);
         AscendingIterator begin() const{
                         AscendingIterator begin_iterator(container);
@@ -66,6 +64,9 @@ namespace ariel {
         AscendingIterator& operator++();
         bool operator==(const AscendingIterator& other) const;
         bool operator!=(const AscendingIterator& other) const;
+       
+        
+      
 
     private:
         const MagicalContainer& container;
@@ -83,16 +84,12 @@ namespace ariel {
         bool operator==(const SideCrossIterator& other) const;
         bool operator!=(const SideCrossIterator& other) const;
 
-         SideCrossIterator begin() const{
-                        return SideCrossIterator(container);
-                    }
+         SideCrossIterator begin() const;
+        
+                
 
                     // Return an iterator that point to the end of the container (one past the last element)
-                    SideCrossIterator end() const{
-                        SideCrossIterator iterator_end(container);
-                        iterator_end.index = container.size();
-                        return iterator_end;
-                    }
+        SideCrossIterator end() const;
 
     private:
         const MagicalContainer& container;
